@@ -57,19 +57,12 @@ public class LocalProcessor {
 
     @ReadFullProcessorNameAnnotation
     public void ReadFullProcessorName(File file) throws FileNotFoundException {
-        informationScanner = null;
-        try {
-            informationScanner = new Scanner(file);
-            while (informationScanner.hasNext()) {
-                version.append(informationScanner.nextLine());
+        try(Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNext()) {
+                version.append(scanner.nextLine());
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } finally {
-            if (informationScanner != null) {
-                informationScanner.close();
-            }
         }
     }
-
 }
