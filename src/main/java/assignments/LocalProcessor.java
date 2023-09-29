@@ -17,7 +17,7 @@ import lombok.Setter;
 public class LocalProcessor {
     private String name;
     private static final Long PERIOD = 10_000_000_000_000L;
-    private String version;
+    private StringBuilder version;
     private Integer cheap;
     private Scanner informationScanner;
     private List<String> stringList = new LinkedList<>();
@@ -25,7 +25,7 @@ public class LocalProcessor {
     public LocalProcessor() {
     }
 
-    public LocalProcessor(String name, String version, Integer cheap, List<String> stringList) {
+    public LocalProcessor(String name, StringBuilder version, Integer cheap, List<String> stringList) {
         this.name = name;
         this.version = version;
         this.cheap = cheap;
@@ -34,9 +34,11 @@ public class LocalProcessor {
 
     @ListIteratorAnnotation
     public void ListIterator(List<String> stringList) {
-        for (int i = 0; i < PERIOD; i++) {
-            if (stringList.get(i) != null) {
-                System.out.println(stringList.get(i).hashCode());
+        if(stringList!=null){
+            for (int i = 0; i < PERIOD; i++) {
+                if (stringList.get(i) != null) {
+                    System.out.println(stringList.get(i).hashCode());
+                }
             }
         }
     }
@@ -54,12 +56,10 @@ public class LocalProcessor {
     public void ReadFullProcessorName(File file) throws FileNotFoundException {
         informationScanner = null;
         try {
-            StringBuilder stringBuilder = new StringBuilder();
             informationScanner = new Scanner(file);
             while (informationScanner.hasNext()) {
-                stringBuilder.append(informationScanner.nextLine());
+                version.append(informationScanner.nextLine());
             }
-            version = stringBuilder.toString();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } finally {
@@ -68,4 +68,5 @@ public class LocalProcessor {
             }
         }
     }
+
 }
