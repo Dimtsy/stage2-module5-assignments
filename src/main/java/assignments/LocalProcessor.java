@@ -19,6 +19,7 @@ public class LocalProcessor {
     private static final Long PERIOD = 10_000_000_000_000L;
     private String version;
     private Integer cheap;
+    private Scanner informationScanner;
     private List<String> stringList = new LinkedList<>();
 
     public LocalProcessor() {
@@ -51,19 +52,19 @@ public class LocalProcessor {
 
     @ReadFullProcessorNameAnnotation
     public void ReadFullProcessorName(File file) throws FileNotFoundException {
-        Scanner scanner = null;
+        informationScanner = null;
         try {
             StringBuilder stringBuilder = new StringBuilder();
-            scanner = new Scanner(file);
-            while (scanner.hasNext()) {
-                stringBuilder.append(scanner.nextLine());
+            informationScanner = new Scanner(file);
+            while (informationScanner.hasNext()) {
+                stringBuilder.append(informationScanner.nextLine());
             }
             version = stringBuilder.toString();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } finally {
-            if (scanner != null) {
-                scanner.close();
+            if (informationScanner != null) {
+                informationScanner.close();
             }
         }
     }
