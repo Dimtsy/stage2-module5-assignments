@@ -39,6 +39,9 @@ public class LocalProcessor {
                 if (stringList.get(i) != null) {
                     System.out.println(stringList.get(i).hashCode());
                 }
+                if (i==stringList.size()-1){
+                    break;
+                }
             }
         }
     }
